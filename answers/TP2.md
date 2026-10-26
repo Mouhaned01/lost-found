@@ -10,3 +10,16 @@ Question 5:On the card, it becomes partially transparent (opacity: 0.6) and disp
 
 Question 6:The browser displays the not-found fallback: "This item does not exist (anymore)." with a "Back to the list" link.   No, the confirmation alert dialog does not appear on the web because React Native's Alert.alert is only supported on mobile devices and emulators.
 
+[ Home: src/app/index.tsx ]
+  - Context: useItems() -> items
+  |
+  +-- (Tap "+ Report an item") ------------> [ Add Screen: src/app/add.tsx ]
+  |                                            - Context: useItems() -> addItem
+  |                                            - router.back() returns to Home
+  |
+  +-- (Tap an ItemCard) --------------------> [ Detail Screen: src/app/item/[id].tsx ]
+                                               - Context: useItems() -> items, toggleClaimed, removeItem
+                                               - router.back() returns to Home
+
+
+
