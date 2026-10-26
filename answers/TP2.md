@@ -1,35 +1,38 @@
-Question 1: TypeScript error message: Property 'claimed' is missing in type '{ id: string; title: string; place: string; }' but required in type 'Item'. TypeScript complains because we added claimed: boolean as a required field in src/types.ts, but the items defined in index.tsx don't have this property yet.
+ Answers TP2
 
-Question 2: The counter shows the total items and unclaimed items (3 items reported · 2 still waiting for their owner). The footer shows Running on android. The word comes from React Native's Platform.OS module, which detects the underlying operating system at runtime
+ Question 1
+Error: `Property 'claimed' is missing in type '{ id: string; title: string; place: string; }' but required in type 'Item'.`
+ TypeScript complains because `claimed` is now mandatory in `Item`, but the objects in `index.tsx` don't have it yet.
 
-Question 3: Both screens share the same React Context (ItemsProvider). When add.tsx calls addItem(), it updates the state inside ItemsContext, which automatically triggers a re-render in index.tsx since it consumes that context via useItems().
+Question 2
+The counter shows total items and unclaimed items: `3 items reported · 2 still waiting for their owner`.
+ The footer displays `Running on android`.
+ The word comes from `Platform.OS`, which checks the operating system.
 
-Question 4: The screen reads the route parameters from the URL using the useLocalSearchParams hook from Expo Router, then uses items.find() to locate the matching item by id.
+ Question 3
+Both screens use the shared `ItemsProvider` context. When `add.tsx` runs `addItem()`, it updates the context state, so `index.tsx` re-renders automatically with the new data.
 
-Question 5:On the card, it becomes partially transparent (opacity: 0.6) and displays a green Claimed badge. The counter decreases the number of items "still waiting for their owner".   On an iPhone, the user would see the native iOS switch design (rounded green thumb when active), because React Native's <Switch> automatically maps to the platform's native toggle component
+Question 4
+It reads the ID from the URL with `useLocalSearchParams()`, then finds the item in the array using `items.find()`.
 
-Question 6:The browser displays the not-found fallback: "This item does not exist (anymore)." with a "Back to the list" link.   No, the confirmation alert dialog does not appear on the web because React Native's Alert.alert is only supported on mobile devices and emulators.
+ Question 5
+ The card opacity drops to 0.6 and shows a green "Claimed" badge. The unclaimed count decreases.
+ On iPhone, you'd see the iOS-style green toggle switch instead of the Android switch because `<Switch>` renders the native platform control.
 
+ Question 6
+The browser shows the text `"This item does not exist (anymore)."` with a link back to `/`.
+ No, the confirmation alert doesn't show up on web because `Alert.alert` only works on mobile/emulator.
+
+ Navigation Map
+
+```text
 [ Home: src/app/index.tsx ]
-  - Context: useItems() -> items
+  - uses: items
   |
-  +-- (Tap "+ Report an item") ------------> [ Add Screen: src/app/add.tsx ]
-  |                                            - Context: useItems() -> addItem
-  |                                            - router.back() returns to Home
+  +-- (Tap "+ Report an item") ---> [ Add Screen: src/app/add.tsx ]
+  |                                  - uses: addItem
+  |                                  - router.back() to go back
   |
-  +-- (Tap an ItemCard) --------------------> [ Detail Screen: src/app/item/[id].tsx ]
-                                               - Context: useItems() -> items, toggleClaimed, removeItem
-                                               - router.back() returns to Home
-
-
-
- Final Questions
-
-1. **Why did the list have to move from index.tsx into a context?**
-   Because multiple independent screens (`index.tsx`, `add.tsx`, and `item/[id].tsx`) need to read and update the same list of items. A context provides a single shared source of truth.
-
-2. **What do the square brackets in `item/[id].tsx` mean?**
-   They define a dynamic route parameter in Expo Router. The segment `[id]` matches any value in the URL path (e.g., `/item/1`, `/item/42`) and makes it accessible through `useLocalSearchParams()`.
-
-3. **What does `router.back()` do to the stack?**
-   It pops the top screen off the navigation stack, returning the user to the previous screen.
+  +-- (Tap card) ---------------> [ Detail Screen: src/app/item/[id].tsx ]
+                                     - uses: items, toggleClaimed, removeItem
+                                     - router.back() to go back
