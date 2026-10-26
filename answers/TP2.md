@@ -8,3 +8,5 @@ Question 4: The screen reads the route parameters from the URL using the useLoca
 
 Question 5:On the card, it becomes partially transparent (opacity: 0.6) and displays a green Claimed badge. The counter decreases the number of items "still waiting for their owner".   On an iPhone, the user would see the native iOS switch design (rounded green thumb when active), because React Native's <Switch> automatically maps to the platform's native toggle component
 
+Question 6:The browser displays the not-found fallback: "This item does not exist (anymore)." with a "Back to the list" link.   No, the confirmation alert dialog does not appear on the web because React Native's Alert.alert is only supported on mobile devices and emulators.
+
