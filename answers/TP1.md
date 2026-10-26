@@ -25,3 +25,5 @@ Question 6:
 Question 7:
     What the screen shows: The counter displays 0 items reported, and the list displays the message: Nothing reported yet.
     Why it is useful: An empty state reassures the user that the app is working properly and has finished loading, rather than leaving a blank screen that could be mistaken for a bug, a network failure, or an infinite loading state. It gives clear feedback about the system status.
+Question8:
+    In the browser, text inputs show a default browser outline/focus ring when clicked, and the screen layout stretches to fill the entire wide desktop browser window unless constrained, whereas on the mobile emulator it is confined to a fixed mobile aspect ratio with mobile keyboard interactions.
