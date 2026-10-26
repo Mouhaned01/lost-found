@@ -4,3 +4,4 @@ Question 2: The counter shows the total items and unclaimed items (3 items repor
 
 Question 3: Both screens share the same React Context (ItemsProvider). When add.tsx calls addItem(), it updates the state inside ItemsContext, which automatically triggers a re-render in index.tsx since it consumes that context via useItems().
 
+Question 4: The screen reads the route parameters from the URL using the useLocalSearchParams hook from Expo Router, then uses items.find() to locate the matching item by id.
