@@ -1,3 +1,6 @@
 Question 1: TypeScript error message: Property 'claimed' is missing in type '{ id: string; title: string; place: string; }' but required in type 'Item'. TypeScript complains because we added claimed: boolean as a required field in src/types.ts, but the items defined in index.tsx don't have this property yet.
 
 Question 2: The counter shows the total items and unclaimed items (3 items reported · 2 still waiting for their owner). The footer shows Running on android. The word comes from React Native's Platform.OS module, which detects the underlying operating system at runtime
+
+Question 3: Both screens share the same React Context (ItemsProvider). When add.tsx calls addItem(), it updates the state inside ItemsContext, which automatically triggers a re-render in index.tsx since it consumes that context via useItems().
+
