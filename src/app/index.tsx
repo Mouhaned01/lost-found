@@ -1,7 +1,7 @@
-import ItemCard from '@/components/ItemCard';
-import { Item } from '@/types';
 import { useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import ItemCard from '@/components/ItemCard';
+import { Item } from '@/types';
 
 const STARTER_ITEMS: Item[] = [
   { id: '1', title: 'Blue water bottle', place: 'Library, 2nd floor' },
@@ -28,6 +28,10 @@ export default function Index() {
     setItems([newItem, ...items]);
     setTitle('');
     setPlace('');
+  }
+
+  function removeItem(id: string) {
+    setItems(items.filter((item) => item.id !== id));
   }
 
   return (
@@ -59,7 +63,11 @@ export default function Index() {
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ItemCard title={item.title} place={item.place} />}
+        renderItem={({ item }) => (
+          <Pressable onLongPress={() => removeItem(item.id)}>
+            <ItemCard title={item.title} place={item.place} />
+          </Pressable>
+        )}
         ItemSeparatorComponent={Separator}
         ListEmptyComponent={<Text>Nothing reported yet.</Text>}
       />
@@ -86,7 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   input: {
-    backgroundColor: '#800080',
+    backgroundColor: '#ffffff',
     borderWidth: 1,
     borderColor: '#d1d5db',
     borderRadius: 8,
