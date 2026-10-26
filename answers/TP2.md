@@ -23,3 +23,13 @@ Question 6:The browser displays the not-found fallback: "This item does not exis
 
 
 
+ Final Questions
+
+1. **Why did the list have to move from index.tsx into a context?**
+   Because multiple independent screens (`index.tsx`, `add.tsx`, and `item/[id].tsx`) need to read and update the same list of items. A context provides a single shared source of truth.
+
+2. **What do the square brackets in `item/[id].tsx` mean?**
+   They define a dynamic route parameter in Expo Router. The segment `[id]` matches any value in the URL path (e.g., `/item/1`, `/item/42`) and makes it accessible through `useLocalSearchParams()`.
+
+3. **What does `router.back()` do to the stack?**
+   It pops the top screen off the navigation stack, returning the user to the previous screen.

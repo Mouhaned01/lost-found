@@ -1,11 +1,26 @@
+import { useState } from 'react';
 import { Link } from 'expo-router';
-import { FlatList, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import ItemCard from '@/components/ItemCard';
 import { useItems } from '@/context/ItemsContext';
 
 export default function Index() {
   const { items } = useItems();
+  const [search, setSearch] = useState('');
+
   const waiting = items.filter((item) => !item.claimed).length;
+
+  const filteredItems = items.filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <View style={styles.screen}>
@@ -19,13 +34,27 @@ export default function Index() {
         </Pressable>
       </Link>
 
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Filter items by title..."
+        value={search}
+        onChangeText={setSearch}
+      />
+
       <FlatList
-        data={items}
+        data={filteredItems}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Link href={{ pathname: '/item/[id]', params: { id: item.id } }} asChild>
+          <Link
+            href={{ pathname: '/item/[id]', params: { id: item.id } }}
+            asChild
+          >
             <Pressable>
-              <ItemCard title={item.title} place={item.place} claimed={item.claimed} />
+              <ItemCard
+                title={item.title}
+                place={item.place}
+                claimed={item.claimed}
+              />
             </Pressable>
           </Link>
         )}
@@ -63,6 +92,15 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontWeight: '600',
     fontSize: 16,
+  },
+  searchInput: {
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#d1d5db',
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+    marginBottom: 16,
   },
   separator: {
     height: 10,
