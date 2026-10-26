@@ -11,3 +11,4 @@ C:\Users\epi.ds\Desktop\Mouhaned\lost-found\node_modules\react-native\Libraries\
 Call Stack:
 ....
 
+Question 4:  keyExtractor provides React Native with a unique key for each item in the list, allowing React to track changes, updates, and re-orderings efficiently without re-rendering everything. If two items share the same id, React displays a warning in the console about duplicate keys, and it can cause rendering bugs, incorrect animations, or mismatched component states.
