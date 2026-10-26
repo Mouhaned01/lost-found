@@ -22,4 +22,6 @@ Question 5:
 Question 6:
     In React, state must be treated as immutable. items.push() mutates the existing array in place without changing its memory reference, so React will not detect the change and will not trigger a re-render.setItems([newItem, ...items]) creates a brand-new array containing the new item followed by the old ones using the spread operator (...), which informs React of the state change and triggers a UI update.
 
-
+Question 7:
+    What the screen shows: The counter displays 0 items reported, and the list displays the message: Nothing reported yet.
+    Why it is useful: An empty state reassures the user that the app is working properly and has finished loading, rather than leaving a blank screen that could be mistaken for a bug, a network failure, or an infinite loading state. It gives clear feedback about the system status.
