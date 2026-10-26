@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import ItemCard from '@/components/ItemCard';
 import { Item } from '@/types';
+import { useState } from 'react';
+import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const STARTER_ITEMS: Item[] = [
   { id: '1', title: 'Blue water bottle', place: 'Library, 2nd floor' },
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   input: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#800080',
     borderWidth: 1,
     borderColor: '#d1d5db',
     borderRadius: 8,
