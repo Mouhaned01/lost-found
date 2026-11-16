@@ -62,6 +62,7 @@ export default function Index() {
                 title={item.title}
                 place={item.place}
                 claimed={item.claimed}
+                photoUri={item.photoUri}
               />
             </Pressable>
           </Link>

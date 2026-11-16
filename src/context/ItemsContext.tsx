@@ -1,72 +1,51 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { Item } from '@/types';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-const STORAGE_KEY = 'lost-found/items';
-
-const STARTER_ITEMS: Item[] = [
-  { id: '1', title: 'Blue water bottle', place: 'Library, 2nd floor', claimed: false },
-  { id: '2', title: 'Student card', place: 'Cafeteria', claimed: false },
-  { id: '3', title: 'USB-C charger', place: 'Room B12', claimed: true },
-];
-
-type NewItem = Omit<Item, 'id' | 'claimed'>;
-
-type ItemsContextValue = {
-  items: Item[];
-  loaded: boolean;
-  addItem: (data: NewItem) => void;
-  toggleClaimed: (id: string) => void;
-  removeItem: (id: string) => void;
+type Props = {
+  title: string;
+  place: string;
+  claimed: boolean;
+  photoUri?: string;
 };
 
-const ItemsContext = createContext<ItemsContextValue | null>(null);
-
-export function ItemsProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<Item[]>([]);
-  const [loaded, setLoaded] = useState(false);
-
-  // 1. Load once, when the app starts
-  useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY).then((json) => {
-      setItems(json ? JSON.parse(json) : STARTER_ITEMS);
-      setLoaded(true);
-    });
-  }, []);
-
-  // 2. Save every time the list changes (but not before loading finished)
-  useEffect(() => {
-    if (loaded) {
-      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-    }
-  }, [items, loaded]);
-
-  function addItem(data: NewItem) {
-    const newItem: Item = { id: Date.now().toString(), claimed: false, ...data };
-    setItems((current) => [newItem, ...current]);
-  }
-
-  function toggleClaimed(id: string) {
-    setItems((current) =>
-      current.map((item) => (item.id === id ? { ...item, claimed: !item.claimed } : item)),
-    );
-  }
-
-  function removeItem(id: string) {
-    setItems((current) => current.filter((item) => item.id !== id));
-  }
-
+export default function ItemCard({ title, place, claimed, photoUri }: Props) {
   return (
-    <ItemsContext.Provider value={{ items, loaded, addItem, toggleClaimed, removeItem }}>
-      {children}
-    </ItemsContext.Provider>
+    <View style={[styles.card, claimed && styles.cardClaimed]}>
+      {photoUri && <Image source={{ uri: photoUri }} style={styles.thumb} />}
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.place}>{place}</Text>
+      {claimed && <Text style={styles.badge}>Claimed</Text>}
+    </View>
   );
 }
 
-export function useItems() {
-  const context = useContext(ItemsContext);
-  if (!context) {
-    throw new Error('useItems() must be used inside <ItemsProvider>');
-  }
-  return context;
-}
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  cardClaimed: {
+    opacity: 0.6,
+  },
+  thumb: {
+    width: '100%',
+    height: 140,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  place: {
+    marginTop: 4,
+    color: '#6b7280',
+  },
+  badge: {
+    marginTop: 8,
+    color: '#047857',
+    fontWeight: '600',
+  },
+});
