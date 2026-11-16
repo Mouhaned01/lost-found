@@ -1,6 +1,9 @@
 export type Item = {
-id: string;
-title: string;
-place: string;
-claimed: boolean;
+    id: string;
+    title: string;
+    place: string;
+    claimed: boolean;
+    photoUri?: string;
+    latitude?: number;
+    longitude?: number;
 };
