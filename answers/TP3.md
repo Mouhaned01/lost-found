@@ -12,5 +12,6 @@ R5)
 
 R6)When an item is saved without GPS coordinates, item.latitude is undefined, so React skips rendering that link.
 
+R7)Instead of crashing, the app displays a native alert popup saying "Location access was refused.". This is handled in src/app/add.tsx inside useMyLocation() by checking if (status !== 'granted'), calling Alert.alert('Location access was refused.');, and exiting early with return; before calling getCurrentPositionAsync().
 
 

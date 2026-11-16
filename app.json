@@ -32,6 +32,19 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Lost & Found uses your photos so you can show the item you found.",
+          "cameraPermission": "Lost & Found uses the camera so you can photograph the item you found."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Lost & Found uses your location to record where an item was found."
+        }
       ]
     ],
     "experiments": {
