@@ -4,3 +4,4 @@ R1) "@react-native-async-storage/async-storage": "2.2.0"
 
 R2)Without the if (loaded) check, the second useEffect would run immediately on the initial render while items is still initialized as an empty array ([]). It would overwrite and wipe out all previously saved data in AsyncStorage with [] before the first useEffect finishes reading the saved items from the device.
 
+R3)result.canceled contains the boolean value true (and result.assets is null
