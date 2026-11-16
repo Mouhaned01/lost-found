@@ -2,4 +2,5 @@ R1) "@react-native-async-storage/async-storage": "2.2.0"
 "expo-image-picker": "~58.0.10",
 "expo-location": "~58.0.22"
 
+R2)Without the if (loaded) check, the second useEffect would run immediately on the initial render while items is still initialized as an empty array ([]). It would overwrite and wipe out all previously saved data in AsyncStorage with [] before the first useEffect finishes reading the saved items from the device.
 

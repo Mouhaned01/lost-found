@@ -13,8 +13,16 @@ import ItemCard from '@/components/ItemCard';
 import { useItems } from '@/context/ItemsContext';
 
 export default function Index() {
-  const { items } = useItems();
+  const { items, loaded } = useItems();
   const [search, setSearch] = useState('');
+
+  if (!loaded) {
+    return (
+      <View style={styles.screen}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   const waiting = items.filter((item) => !item.claimed).length;
 
