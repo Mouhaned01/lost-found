@@ -10,3 +10,7 @@ R4)Opening the camera gives the app direct access to live hardware sensors that 
 
 R5)
 
+R6)When an item is saved without GPS coordinates, item.latitude is undefined, so React skips rendering that link.
+
+
+
